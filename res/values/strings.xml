@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Deadline</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world! </string>
+    <string name="Add_New">New Task</string>
+    <string name="edit">Edit Task</string>
+    <string name="delete">Delete Task</string>
+    <string name="title_activity_display_contact">DisplayTask</string>
+    <string name="name">Tittle</string>
+    <string name="phone">Date</string>
+    <string name="email">Detail</string>
+    <string name="street">Course</string>
+    <string name="country">Lecturer</string>
+    <string name="save">Save</string>
+    <string name="deleteContact">Are you sure, you want to delete it. </string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>
