@@ -16,6 +16,12 @@
         </activity>
 
         <activity
-            android:name="com.blogspot.onayub.sqltrial.DisplayContact"/>
+            android:name="com.blogspot.onayub.sqltrial.DisplayContact"
+            android:label="Deadline">
+            <intent-filter>
+                <action android:name="com.blogspot.onayub.sqltrial.LAUNCH"/>
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
