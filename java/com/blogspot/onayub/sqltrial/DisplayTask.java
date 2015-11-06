@@ -1,24 +1,24 @@
 package com.blogspot.onayub.sqltrial;
 
-/**
- * Created by Shalahudin Al Ayyub on 23/10/2015.
- */
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class DisplayTask extends AppCompatActivity {
 
 
-import android. os. Bundle;
-import android. app. Activity;
-import android. app. AlertDialog;
-import android. content. DialogInterface;
-import android. content. Intent;
-import android. database. Cursor;
-import android. view. Menu;
-import android. view. MenuItem;
-import android. view. View;
-import android. widget. Button;
-import android. widget. TextView;
-import android. widget. Toast;
-
-public class DisplayContact extends Activity {
     int from_Where_I_Am_Coming = 0;
     private DBHelper mydb ;
     TextView name ;
@@ -30,8 +30,11 @@ public class DisplayContact extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super. onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_task);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         name  = (TextView)  findViewById(R. id. editTextName);
         phone = (TextView)  findViewById(R. id. editTextPhone);
@@ -93,11 +96,24 @@ public class DisplayContact extends Activity {
                 place. setClickable(false);
             }
         }
+        /*
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar if it is present.
         Bundle extras = getIntent().getExtras();
         if(extras !=null)
         {
@@ -143,7 +159,7 @@ public class DisplayContact extends Activity {
                             public void onClick(DialogInterface dialog, int id) {
                                 mydb. deleteContact(id_To_Update);
                                 Toast. makeText(getApplicationContext(), "Deleted Successfully",
-                                        Toast. LENGTH_SHORT).show();
+                                        Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                             }
