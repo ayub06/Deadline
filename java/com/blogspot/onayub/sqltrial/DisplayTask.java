@@ -160,7 +160,7 @@ public class DisplayTask extends AppCompatActivity {
                                 mydb. deleteContact(id_To_Update);
                                 Toast. makeText(getApplicationContext(), "Deleted Successfully",
                                         Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MainAct.class);
                                 startActivity(intent);
                             }
                         })
@@ -190,7 +190,7 @@ public class DisplayTask extends AppCompatActivity {
                     Toast. makeText(getApplicationContext(), "Updated",
                             Toast. LENGTH_SHORT). show();
                     Intent intent = new
-                            Intent(getApplicationContext(), MainActivity. class);
+                            Intent(getApplicationContext(), MainAct.class);
                     startActivity(intent);
                 }
                 else{
@@ -209,7 +209,7 @@ public class DisplayTask extends AppCompatActivity {
                     Toast. makeText(getApplicationContext(), "not done",
                             Toast. LENGTH_SHORT). show();
                 }
-                Intent intent = new Intent(getApplicationContext(), MainActivity. class);
+                Intent intent = new Intent(getApplicationContext(), MainAct.class);
                 startActivity(intent);
             }
         }

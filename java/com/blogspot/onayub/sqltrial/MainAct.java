@@ -1,51 +1,45 @@
-/**
- * DEADLINE LIST
- * Show all task in srollable container
- * Contain Handler : tap only
- * @author
- * Shalahudin Al Ayyub
- */
-
 package com.blogspot.onayub.sqltrial;
 
-import android. content. Context;
-import android. content. Intent;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android. support. v7. app. ActionBarActivity;
-import android. os. Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android. view. KeyEvent;
-import android. view. Menu;
-import android. view. MenuItem;
-import android. view. View;
-import android. widget. AdapterView;
-import android. widget. ArrayAdapter;
-import android. widget. AdapterView. OnItemClickListener;
-import android. widget. ListView;
-import java. util. ArrayList;
-import java. util. List;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainAct extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "MESSAGE";
     private ListView obj ;
     DBHelper mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super. onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-
+        //Daftar Deadline yang telah dibuat
         mydb = new DBHelper(this);
         ArrayList array_list = mydb.getAllCotacts();
         ArrayAdapter arrayAdapter=new
                 ArrayAdapter(this, android. R. layout. simple_list_item_1,  array_list);
         obj = (ListView) findViewById(R. id. listView1);
         obj . setAdapter(arrayAdapter);
-        obj . setOnItemClickListener(new OnItemClickListener() {
+
+        //Memilih salah satu deadline
+        obj . setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-// TODO Auto-generated method stub
+                // TODO Auto-generated method stub
                 int id_To_Search = arg2 + 1;
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("id", id_To_Search);
@@ -56,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Menambah Deadline
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +63,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu; this adds items to the action bar if it is present.
+    // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater(). inflate(R. menu. menu_main,  menu);
         return true;
-    }
-    @Override
+    }*/
+
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item){
         super. onOptionsItemSelected(item);
         switch(item. getItemId())
@@ -88,11 +84,13 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super. onOptionsItemSelected(item);
         }
-    }
+    }*/
+
     public boolean onKeyDown(int keycode, KeyEvent event) {
         if (keycode == KeyEvent.KEYCODE_BACK) {
             moveTaskToBack(true);
         }
         return super.onKeyDown(keycode, event);
     }
+
 }
