@@ -17,16 +17,15 @@
         android:ems="10"
         android:inputType="text"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true">
-    </EditText>
+        android:layout_alignParentEnd="true"/>
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:layout_above="@+id/editTextCity"
-        android:layout_alignStart="@+id/editTextStreet" />
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentEnd="true" />
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -35,37 +34,31 @@
         android:layout_alignParentLeft="true"
         android:text="@string/name"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="run"
-        android:text="@string/save"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/editTextCity" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_above="@+id/editTextCity"
+        android:layout_alignBottom="@+id/editTextEmail"
         android:layout_alignParentStart="true" />
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editTextPhone"
-        android:layout_alignLeft="@+id/textView1"
         android:text="@string/phone"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignBaseline="@+id/editTextPhone"
+        android:layout_alignBottom="@+id/editTextPhone"
+        android:layout_alignParentStart="true" />
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/street"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_above="@+id/editTextEmail"
+        android:layout_alignBottom="@+id/editTextStreet"
         android:layout_alignParentStart="true" />
     <EditText
         android:id="@+id/editTextCity"
@@ -73,34 +66,45 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:layout_above="@+id/button1"
-        android:layout_toEndOf="@+id/textView3" />
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignStart="@+id/editTextEmail" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editTextCity"
-        android:layout_alignBottom="@+id/editTextCity"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/editTextEmail"
         android:text="@string/country"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="37dp" />
     <EditText
         android:id="@+id/editTextStreet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:layout_above="@+id/editTextEmail"
-        android:layout_alignStart="@+id/editTextName" />
+        android:layout_below="@+id/editTextPhone"
+        android:layout_alignStart="@+id/editTextPhone" />
     <requestFocus />
 
     <EditText
         android:id="@+id/editTextPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editTextStreet"
-        android:layout_below="@+id/editTextName"
         android:ems="10"
-        android:inputType="phone|text" />
+        android:inputType="phone|text"
+        android:layout_below="@+id/textView1"
+        android:layout_alignStart="@+id/editTextName" />
+
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:onClick="run"
+        android:id="@+id/button"
+        android:layout_below="@+id/editTextCity"
+        android:layout_alignEnd="@+id/editTextCity"
+        android:layout_marginTop="82dp" />-->
 </RelativeLayout>

@@ -36,7 +36,7 @@
         -->
         <activity
             android:name=".DisplayTask"
-            android:label="@string/title_activity_display_task"
+            android:label="@string/app_name"
             android:parentActivityName=".MainAct"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data

@@ -43,7 +43,7 @@ public class DisplayTask extends AppCompatActivity {
         place = (TextView)  findViewById(R. id. editTextCity);
 
         mydb = new DBHelper(this);
-        Bundle extras = getIntent(). getExtras();
+        Bundle extras = getIntent().getExtras();
 
         if(extras !=null)
         {
@@ -53,7 +53,7 @@ public class DisplayTask extends AppCompatActivity {
                 /**
                  * VIEW PART
                  * Activity : activity_display_contact.xml
-                 * Show if : Menekan salah satu kontak
+                 * Show if : Menekan salah satu Task
                  * Description : Bagian ini hanya menampilkan kontak saja, tidak mengedit
                  * Available menu : Tersedia menu DELETE dan EDIT
                  */
@@ -72,7 +72,8 @@ public class DisplayTask extends AppCompatActivity {
                     rs. close();
                 }
 
-                Button b = (Button) findViewById(R. id. button1);
+                FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab_submit);
+                /*Button b = (Button) findViewById(R.id.button);*/
                 b.setVisibility(View. INVISIBLE);
 
                 name. setText((CharSequence) nam);
@@ -134,20 +135,26 @@ public class DisplayTask extends AppCompatActivity {
         switch(item.getItemId())
         {
             case R.id.Edit_Contact:
-                Button b = (Button) findViewById(R. id. button1);
-                b. setVisibility(View.VISIBLE);
+                /*Button b = (Button) findViewById(R.id.button);*/
+                FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab_submit);
+                b.setVisibility(View.VISIBLE);
+
                 name. setEnabled(true);
                 name. setFocusableInTouchMode(true);
                 name. setClickable(true);
+
                 phone. setEnabled(true);
                 phone. setFocusableInTouchMode(true);
                 phone. setClickable(true);
+
                 email. setEnabled(true);
                 email. setFocusableInTouchMode(true);
                 email. setClickable(true);
+
                 street. setEnabled(true);
                 street. setFocusableInTouchMode(true);
                 street. setClickable(true);
+
                 place. setEnabled(true);
                 place. setFocusableInTouchMode(true);
                 place. setClickable(true);
@@ -155,31 +162,32 @@ public class DisplayTask extends AppCompatActivity {
             case R.id.Delete_Contact:
                 AlertDialog. Builder builder = new AlertDialog. Builder(this);
                 builder.setMessage(R. string. deleteContact)
-                        . setPositiveButton(R. string. yes, new DialogInterface. OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                mydb. deleteContact(id_To_Update);
-                                Toast. makeText(getApplicationContext(), "Deleted Successfully",
+                                mydb.deleteContact(id_To_Update);
+                                Toast.makeText(getApplicationContext(), "Deleted Successfully",
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), MainAct.class);
                                 startActivity(intent);
                             }
                         })
-                        . setNegativeButton(R. string. no, new DialogInterface. OnClickListener() {
+                        . setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 // User cancelled the dialog
                             }
                         });
                 AlertDialog d = builder. create();
-                d. setTitle("Are you sure");
-                d. show();
+                d.setTitle("Are you sure?");
+                d.show();
                 return true;
             default:
                 return super. onOptionsItemSelected(item);
         }
     }
+
     public void run(View view)
     {
-        Bundle extras = getIntent(). getExtras();
+        Bundle extras = getIntent().getExtras();
         if(extras !=null)
         {
             int Value = extras. getInt("id");
