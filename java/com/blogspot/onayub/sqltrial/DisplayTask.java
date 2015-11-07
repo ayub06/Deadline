@@ -58,7 +58,7 @@ public class DisplayTask extends AppCompatActivity {
                  * Available menu : Tersedia menu DELETE dan EDIT
                  */
 
-                Cursor rs = mydb. getData(Value);
+                Cursor rs = mydb.getData(Value);
                 id_To_Update = Value;
                 rs. moveToFirst();
 
@@ -74,7 +74,7 @@ public class DisplayTask extends AppCompatActivity {
 
                 FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab_submit);
                 /*Button b = (Button) findViewById(R.id.button);*/
-                b.setVisibility(View. INVISIBLE);
+                b.setVisibility(View.INVISIBLE);
 
                 name. setText((CharSequence) nam);
                 name. setFocusable(false);
@@ -173,7 +173,7 @@ public class DisplayTask extends AppCompatActivity {
                         })
                         . setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-// User cancelled the dialog
+            // User cancelled the dialog
                             }
                         });
                 AlertDialog d = builder. create();
@@ -185,37 +185,33 @@ public class DisplayTask extends AppCompatActivity {
         }
     }
 
-    public void run(View view)
-    {
+    public void run(View view) {
         Bundle extras = getIntent().getExtras();
-        if(extras !=null)
-        {
-            int Value = extras. getInt("id");
-            if(Value>0){
-                if(mydb. updateContact(id_To_Update, name. getText(). toString(),
-                        phone. getText(). toString(),  email. getText(). toString(),  street. getText(). toString(),
-                        place. getText(). toString())){
-                    Toast. makeText(getApplicationContext(), "Updated",
-                            Toast. LENGTH_SHORT). show();
+        if (extras != null) {
+
+            int Value = extras.getInt("id");
+            if (Value > 0) {
+                if (mydb.updateContact(id_To_Update, name.getText().toString(),
+                        phone.getText().toString(), email.getText().toString(), street.getText().toString(),
+                        place.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "Updated",
+                            Toast.LENGTH_SHORT).show();
                     Intent intent = new
                             Intent(getApplicationContext(), MainAct.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "not Updated",
+                            Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast. makeText(getApplicationContext(), "not Updated",
-                            Toast. LENGTH_SHORT). show();
-                }
-            }
-            else{
-                if(mydb. insertContact(name. getText(). toString(),
-                        phone. getText(). toString(),  email. getText(). toString(),  street. getText(). toString(),
-                        place. getText(). toString())){
-                    Toast. makeText(getApplicationContext(), "done",
-                            Toast. LENGTH_SHORT). show();
-                }
-                else{
-                    Toast. makeText(getApplicationContext(), "not done",
-                            Toast. LENGTH_SHORT). show();
+            } else {
+                if (mydb.insertContact(name.getText().toString(),
+                        phone.getText().toString(), email.getText().toString(), street.getText().toString(),
+                        place.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "done",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "not done",
+                            Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent(getApplicationContext(), MainAct.class);
                 startActivity(intent);
