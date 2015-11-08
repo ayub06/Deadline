@@ -45,72 +45,7 @@ public class DisplayTask extends AppCompatActivity {
         mydb = new DBHelper(this);
         Bundle extras = getIntent().getExtras();
 
-        if(extras !=null)
-        {
-            int Value = extras.getInt("id");
-            if(Value>0){
-
-                /**
-                 * VIEW PART
-                 * Activity : activity_display_contact.xml
-                 * Show if : Menekan salah satu Task
-                 * Description : Bagian ini hanya menampilkan kontak saja, tidak mengedit
-                 * Available menu : Tersedia menu DELETE dan EDIT
-                 */
-
-                Cursor rs = mydb.getData(Value);
-                id_To_Update = Value;
-                rs. moveToFirst();
-
-                String nam  =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_NAME));
-                String phon =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_PHONE));
-                String emai =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_EMAIL));
-                String stree=rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_STREET));
-                String plac =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_CITY));
-
-                if (!rs. isClosed()){
-                    rs. close();
-                }
-
-                FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab_submit);
-                /*Button b = (Button) findViewById(R.id.button);*/
-                b.setVisibility(View.INVISIBLE);
-
-                name. setText((CharSequence) nam);
-                name. setFocusable(false);
-                name. setClickable(false);
-
-                phone. setText((CharSequence) phon);
-                phone. setFocusable(false);
-                phone. setClickable(false);
-
-                email. setText((CharSequence) emai);
-                email. setFocusable(false);
-                email. setClickable(false);
-
-                street. setText((CharSequence) stree);
-                street. setFocusable(false);
-                street. setClickable(false);
-
-                place. setText((CharSequence) plac);
-                place. setFocusable(false);
-                place. setClickable(false);
-            }
-        }
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
