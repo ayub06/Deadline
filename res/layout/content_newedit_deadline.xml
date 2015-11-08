@@ -8,14 +8,15 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_display_task"
-    tools:context="com.blogspot.onayub.sqltrial.DisplayTask">
+    tools:context="com.blogspot.onayub.sqltrial.NewEditDeadline">
+
     <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="82dp"
         android:ems="10"
         android:inputType="text"
+        android:id="@+id/editTextName"
+        android:layout_width="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"/>
     <EditText

@@ -6,14 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -45,7 +41,7 @@ public class MainAct extends AppCompatActivity {
                 int id_To_Search = arg2 + 1;
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("id", id_To_Search);
-                Intent intent = new Intent(getApplicationContext(), DisplayTask.class);
+                Intent intent = new Intent(getApplicationContext(), DisplayDeadline.class);
                 //intent.setAction("com.blogspot.onayub.sqltrial.LAUNCH");
                 intent.putExtras(dataBundle);
                 startActivity(intent);
@@ -58,7 +54,7 @@ public class MainAct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Bundle dataBundle = new Bundle();
-                Intent intent = new Intent(getApplicationContext(), DisplayTask. class);
+                Intent intent = new Intent(getApplicationContext(), NewEditDeadline. class);
                 intent. putExtras(dataBundle);
                 startActivity(intent);
             }
@@ -79,7 +75,7 @@ public class MainAct extends AppCompatActivity {
         {
             case R.id. item1: Bundle dataBundle = new Bundle();
                 dataBundle. putInt("id", 0);
-                Intent intent = new Intent(getApplicationContext(), DisplayTask. class);
+                Intent intent = new Intent(getApplicationContext(), NewEditDeadline. class);
                 intent. putExtras(dataBundle);
                 startActivity(intent);
                 return true;
