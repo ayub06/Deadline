@@ -42,7 +42,6 @@ public class MainAct extends AppCompatActivity {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("id", id_To_Search);
                 Intent intent = new Intent(getApplicationContext(), DisplayDeadline.class);
-                //intent.setAction("com.blogspot.onayub.sqltrial.LAUNCH");
                 intent.putExtras(dataBundle);
                 startActivity(intent);
             }

@@ -3,6 +3,7 @@ package com.blogspot.onayub.sqltrial;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,6 @@ public class NewEditDeadline extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         name  = (TextView)  findViewById(R. id. editTextName);
         phone = (TextView)  findViewById(R. id. editTextPhone);
         email = (TextView)  findViewById(R. id. editTextStreet);
@@ -40,14 +40,55 @@ public class NewEditDeadline extends AppCompatActivity {
         place = (TextView)  findViewById(R. id. editTextCity);
 
         mydb = new DBHelper(this);
-        Bundle extras = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();//.getString("mode","new");
 
+        if(extras !=null) {
+            int Value = extras.getInt("id");
+            if (Value > 0) {
+
+                Cursor rs = mydb.getData(Value);
+                id_To_Update = Value;
+                rs.moveToFirst();
+
+                String nam = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_NAME));
+                String phon = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_PHONE));
+                String emai = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_EMAIL));
+                String stree = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_STREET));
+                String plac = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_CITY));
+
+                //Display Data yang mau diedit
+                name.setText((CharSequence) nam);
+                name.setFocusable(true);
+                name.setCursorVisible(true);
+                name.setClickable(true);
+
+                phone.setText((CharSequence) phon);
+                phone.setFocusable(true);
+                phone.setCursorVisible(true);
+                phone.setClickable(true);
+
+                email.setText((CharSequence) emai);
+                email.setFocusable(true);
+                email.setCursorVisible(true);
+                email.setClickable(true);
+
+                street.setText((CharSequence) stree);
+                street.setFocusable(true);
+                street.setCursorVisible(true);
+                street.setClickable(true);
+
+                place.setText((CharSequence) plac);
+                place.setFocusable(true);
+                place.setCursorVisible(true);
+                place.setClickable(true);
+            }
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        Bundle extras = getIntent().getExtras();
+       Bundle extras = getIntent().getExtras();
         if(extras !=null)
         {
             int Value = extras.getInt("id");
@@ -55,7 +96,7 @@ public class NewEditDeadline extends AppCompatActivity {
                 getMenuInflater().inflate(R. menu.display_contact, menu);
             }
             else{
-                getMenuInflater().inflate(R. menu.menu_main,  menu);
+                getMenuInflater().inflate(R.menu.menu_main, menu);
             }
         }
         return true;
