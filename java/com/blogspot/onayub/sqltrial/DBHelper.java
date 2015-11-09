@@ -91,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Integer deleteContact (Integer id)
     {
         SQLiteDatabase db = this. getWritableDatabase();
-        return db. delete("contacts","id = ? ",new String[] { Integer. toString(id) });
+        return db. delete("contacts","id = ? ",new String[] { Integer.toString(id) });
     }
     public ArrayList<String> getAllCotacts()
     {

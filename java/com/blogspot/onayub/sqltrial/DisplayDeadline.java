@@ -26,8 +26,10 @@ import android.widget.Toast;
 
 public class DisplayDeadline extends AppCompatActivity {
 
-    int id_To_Update=1;
-    int from_Where_I_Am_Coming = 0;
+    DBHelper mydb ;
+    /*Bundle extras = getIntent().getExtras();
+    int Value = extras.getInt("id");*/
+
     TextView name ;
     TextView phone ;
     TextView email ;
@@ -41,19 +43,18 @@ public class DisplayDeadline extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DBHelper mydb ;
         Bundle extras = getIntent().getExtras();
-        final int Value = extras.getInt("id");
+        int Value = extras.getInt("id");
         mydb = new DBHelper(this);
         name  = (TextView)  findViewById(R. id. TaskName);
 
+/*
         if(extras !=null)
         {
+*/
 
             if(Value>0){
-
                 Cursor rs = mydb.getData(Value);
-                id_To_Update = Value;
                 rs. moveToFirst();
 
                 String nam  =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_NAME));
@@ -61,7 +62,6 @@ public class DisplayDeadline extends AppCompatActivity {
                 String emai =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_EMAIL));
                 String stree=rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_STREET));
                 String plac =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_CITY));
-
 
                 if (!rs. isClosed()){
                     rs. close();
@@ -71,7 +71,6 @@ public class DisplayDeadline extends AppCompatActivity {
                 CollapsingToolbarLayout tb = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
                 tb.setTitle((CharSequence) nam);
 
-
                 //Tampilkan konten
                 String tampilkan = "\t Tittle \t\t\t\t\t"+nam
                         + "\n\n \t Date \t\t\t\t\t" + phon
@@ -79,15 +78,20 @@ public class DisplayDeadline extends AppCompatActivity {
                         + "\n\n \t Detail \t\t\t\t" + stree
                         + "\n\n \t Lecture \t\t\t" + plac;
                 name. setText((CharSequence) tampilkan);
+            }else{
+                Toast.makeText(getApplicationContext(), "Eror brow",
+                        Toast.LENGTH_SHORT).show();
             }
-        }
+        /*}*/
 
         //Mengedit Deadline
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_edit);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //int id_To_Search = arg2 + 1;
+                Bundle extras = getIntent().getExtras();
+                int Value = extras.getInt("id");
+
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("id", Value);
                 Intent intent = new Intent(getApplicationContext(), NewEditDeadline.class);
@@ -100,23 +104,21 @@ public class DisplayDeadline extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
-
         getMenuInflater().inflate(R.menu.menu_display_deadline, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        final DBHelper mydb ;
-        Bundle extras = getIntent().getExtras();
-        final int Value = extras.getInt("id");
-        mydb = new DBHelper(this);
+/*
+
         AlertDialog. Builder builder = new AlertDialog. Builder(this);
         builder.setMessage(R. string. deleteContact)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
                         mydb.deleteContact(id_To_Update);
+
                         Toast.makeText(getApplicationContext(), "Deleted Successfully",
                                 Toast.LENGTH_SHORT).show();
 
@@ -131,8 +133,9 @@ public class DisplayDeadline extends AppCompatActivity {
                 });
         AlertDialog d = builder. create();
         d.setTitle("Are you sure?");
-        d.show();
+        d.show();*/
         return true;
+
     }
 }
 
