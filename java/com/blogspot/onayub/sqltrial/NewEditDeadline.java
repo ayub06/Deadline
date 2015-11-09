@@ -54,11 +54,11 @@ public class NewEditDeadline extends AppCompatActivity {
                 id_To_Update = Value;
                 rs.moveToFirst();
 
-                String nam = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_NAME));
-                String phon = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_PHONE));
-                String emai = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_EMAIL));
-                String stree = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_STREET));
-                String plac = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_CITY));
+                String nam      = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_NAME));
+                String phon     = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_PHONE));
+                String emai     = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_EMAIL));
+                String stree    = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_STREET));
+                String plac     = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_CITY));
 
                 //Display Data yang mau diedit
 

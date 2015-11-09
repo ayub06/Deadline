@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.DragEvent;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,13 +32,22 @@ public class MainAct extends AppCompatActivity {
         mydb = new DBHelper(this);
         ArrayList array_list = mydb.getAllCotacts();
         ArrayAdapter arrayAdapter=new
-                ArrayAdapter(this, android. R. layout. simple_list_item_1,  array_list);
+                ArrayAdapter(this,R.layout.list_style, R.id.title_label,  array_list);
 
         obj = (ListView) findViewById(R. id. listView1);
-        obj.setDividerHeight(7);
-        //obj.setFadingEdgeLength(3);
-
+        obj.setDividerHeight(8);
         obj.setAdapter(arrayAdapter);
+
+
+        //Coba LongClick
+        obj.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "Long Click!!!!",
+                        Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
         //Memilih salah satu deadline
         obj . setOnItemClickListener(new AdapterView.OnItemClickListener() {
