@@ -18,7 +18,7 @@
     <string name="no">No</string>
     <string name="title_activity_display_task">DisplayTask</string>
     <string name="title_activity_main">MainAct</string>
-    <string name="title_activity_display_deadline">DisplayDeadline</string>
+    <string name="title_activity_display_deadline">Deadline</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
