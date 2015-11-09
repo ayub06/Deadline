@@ -30,15 +30,19 @@ public class MainAct extends AppCompatActivity {
         ArrayList array_list = mydb.getAllCotacts();
         ArrayAdapter arrayAdapter=new
                 ArrayAdapter(this, android. R. layout. simple_list_item_1,  array_list);
+
         obj = (ListView) findViewById(R. id. listView1);
-        obj . setAdapter(arrayAdapter);
+        obj.setDividerHeight(7);
+        //obj.setFadingEdgeLength(3);
+
+        obj.setAdapter(arrayAdapter);
 
         //Memilih salah satu deadline
         obj . setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 // TODO Auto-generated method stub
-                int id_To_Search = arg2 + 1;
+                int id_To_Search = arg2+1;
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("id", id_To_Search);
                 Intent intent = new Intent(getApplicationContext(), DisplayDeadline.class);

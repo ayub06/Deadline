@@ -9,16 +9,29 @@ package com.blogspot.onayub.sqltrial;
  */
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DisplayDeadline extends AppCompatActivity {
+
+    int id_To_Update=1;
+    int from_Where_I_Am_Coming = 0;
+    TextView name ;
+    TextView phone ;
+    TextView email ;
+    TextView street ;
+    TextView place ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +40,11 @@ public class DisplayDeadline extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int from_Where_I_Am_Coming = 0;
         DBHelper mydb ;
-        TextView name ;
-        int id_To_Update=0;
-        name  = (TextView)  findViewById(R. id. TaskName);
-        mydb = new DBHelper(this);
         Bundle extras = getIntent().getExtras();
         final int Value = extras.getInt("id");
+        mydb = new DBHelper(this);
+        name  = (TextView)  findViewById(R. id. TaskName);
 
         if(extras !=null)
         {
@@ -73,7 +83,44 @@ public class DisplayDeadline extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+
+
+        getMenuInflater().inflate(R.menu.menu_display_deadline, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        final DBHelper mydb ;
+        Bundle extras = getIntent().getExtras();
+        final int Value = extras.getInt("id");
+        mydb = new DBHelper(this);
+        AlertDialog. Builder builder = new AlertDialog. Builder(this);
+        builder.setMessage(R. string. deleteContact)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mydb.deleteContact(id_To_Update);
+                        Toast.makeText(getApplicationContext(), "Deleted Successfully",
+                                Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(getApplicationContext(), MainAct.class);
+                        startActivity(intent);
+                    }
+                })
+                . setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        AlertDialog d = builder. create();
+        d.setTitle("Are you sure?");
+        d.show();
+        return true;
     }
 }
 

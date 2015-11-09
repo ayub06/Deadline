@@ -93,7 +93,7 @@ public class NewEditDeadline extends AppCompatActivity {
         {
             int Value = extras.getInt("id");
             if(Value>0){
-                getMenuInflater().inflate(R. menu.display_contact, menu);
+                /*getMenuInflater().inflate(R. menu.display_contact, menu);*/
             }
             else{
                 getMenuInflater().inflate(R.menu.menu_main, menu);
