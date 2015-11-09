@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -61,10 +62,17 @@ public class DisplayDeadline extends AppCompatActivity {
                 String stree=rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_STREET));
                 String plac =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_CITY));
 
+
                 if (!rs. isClosed()){
                     rs. close();
                 }
 
+                //Mencoba menampilkan tittle ke bar
+                CollapsingToolbarLayout tb = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+                tb.setTitle((CharSequence) nam);
+
+
+                //Tampilkan konten
                 String tampilkan = "\t Tittle \t\t\t\t\t"+nam
                         + "\n\n \t Date \t\t\t\t\t" + phon
                         + "\n\n \t Course \t\t\t\t"+ emai
