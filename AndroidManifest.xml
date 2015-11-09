@@ -38,7 +38,7 @@
         -->
         <activity
             android:name=".NewEditDeadline"
-            android:label="@string/app_name"
+            android:label="Edit Deadline"
             android:parentActivityName=".MainAct"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data

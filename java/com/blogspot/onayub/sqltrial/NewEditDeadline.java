@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,10 +42,13 @@ public class NewEditDeadline extends AppCompatActivity {
 
         mydb = new DBHelper(this);
         Bundle extras = getIntent().getExtras();//.getString("mode","new");
+        CollapsingToolbarLayout tb = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout2);
 
         if(extras !=null) {
             int Value = extras.getInt("id");
             if (Value > 0) {
+                //Mencoba edit tittle di bar tp sementara edit/new dulu
+                tb.setTitle((CharSequence)"Edit Deadline");
 
                 Cursor rs = mydb.getData(Value);
                 id_To_Update = Value;
@@ -57,6 +61,7 @@ public class NewEditDeadline extends AppCompatActivity {
                 String plac = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_CITY));
 
                 //Display Data yang mau diedit
+
                 name.setText((CharSequence) nam);
                 name.setFocusable(true);
                 name.setCursorVisible(true);
@@ -81,6 +86,8 @@ public class NewEditDeadline extends AppCompatActivity {
                 place.setFocusable(true);
                 place.setCursorVisible(true);
                 place.setClickable(true);
+            }else {
+                tb.setTitle((CharSequence)"New Deadline");
             }
         }
     }
