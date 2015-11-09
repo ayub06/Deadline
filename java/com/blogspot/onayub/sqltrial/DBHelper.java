@@ -93,17 +93,37 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this. getWritableDatabase();
         return db. delete("contacts","id = ? ",new String[] { Integer.toString(id) });
     }
-    public ArrayList<String> getAllCotacts()
+    public ArrayList<String> getDataDeadline(int data)
     {
         ArrayList<String> array_list = new ArrayList<String>();
         //hp = new HashMap();
         SQLiteDatabase db = this. getReadableDatabase();
         Cursor res = db. rawQuery( "select * from contacts", null );
+
         res. moveToFirst();
-        while(res. isAfterLast() == false){
-            array_list. add(res. getString(res. getColumnIndex(CONTACTS_COLUMN_NAME)));
-            res. moveToNext();
+        switch (data) {
+            case 0:
+                while (!res.isAfterLast()) {
+                array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+                res.moveToNext();
+            }
+                break;
+
+            case 1:
+                while (!res.isAfterLast()) {
+                array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_EMAIL)));
+                res.moveToNext();
+            }
+                break;
+
+            default:
+                while (!res.isAfterLast()) {
+                array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_ID)));
+                res.moveToNext();
+            }
+                break;
         }
+
         return array_list;
     }
 }

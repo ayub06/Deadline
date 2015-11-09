@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.DragEvent;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class MainAct extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "MESSAGE";
@@ -30,13 +29,16 @@ public class MainAct extends AppCompatActivity {
 
         //Daftar Deadline yang telah dibuat
         mydb = new DBHelper(this);
-        ArrayList array_list = mydb.getAllCotacts();
+        ArrayList title = mydb.getDataDeadline(0);
         ArrayAdapter arrayAdapter=new
-                ArrayAdapter(this,R.layout.list_style, R.id.title_label,  array_list);
+                ArrayAdapter(this,R.layout.list_style, R.id.title_label,  title);
+
+        ArrayList detail = mydb.getDataDeadline(1);
 
         obj = (ListView) findViewById(R. id. listView1);
         obj.setDividerHeight(8);
         obj.setAdapter(arrayAdapter);
+
 
 
         //Coba LongClick
