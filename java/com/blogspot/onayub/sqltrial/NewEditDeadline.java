@@ -240,6 +240,8 @@ public class NewEditDeadline extends AppCompatActivity {
                 else{
                 if (mydb.updateDeadline(id_To_Update, inputTask.getText().toString(),
                         dateToString(deadlineDate),inputDescription.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "Updated",
+                            Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), MainAct.class);
                     startActivity(intent);
                     }else {
@@ -257,11 +259,13 @@ public class NewEditDeadline extends AppCompatActivity {
                 }
                 else{
                     if (mydb.insertDeadline(inputTask.getText().toString(),
-                            dateToString(deadlineDate),inputDescription.getText().toString())) {
+                            dateToString(deadlineDate), inputDescription.getText().toString())) {
+                        Toast.makeText(getApplicationContext(), "Created",
+                                Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainAct.class);
                         startActivity(intent);
                     }else {
-                        Toast.makeText(getApplicationContext(), "not inserted",
+                        Toast.makeText(getApplicationContext(), "not created",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -316,6 +320,6 @@ public class NewEditDeadline extends AppCompatActivity {
     private String dateToString(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.US);
         dateButton.setText(dateFormat.format(date));
-        return dateFormat.toString();
+        return dateFormat.format(date).toString();
     }
 }

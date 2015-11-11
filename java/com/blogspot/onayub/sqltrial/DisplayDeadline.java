@@ -70,9 +70,9 @@ public class DisplayDeadline extends AppCompatActivity {
                 tb.setTitle((CharSequence) nam);
 
                 //Tampilkan konten
-                String tampilkan = "\t Tittle \t\t\t\t\t"+nam
-                        + "\n\n \t Date \t\t\t\t\t" + phon
-                        + "\n\n \t Course \t\t\t\t"+ emai
+                String tampilkan = "\t Tittle \t\t\t\t"+nam
+                        + "\n\n \t Date \t\t\t\t" + phon
+                        + "\n\n\n \t Detail \n\t\t"+ emai
                         /*+ "\n\n \t Detail \t\t\t\t" + stree
                         + "\n\n \t Lecture \t\t\t" + plac*/;
                 name. setText((CharSequence) tampilkan);
