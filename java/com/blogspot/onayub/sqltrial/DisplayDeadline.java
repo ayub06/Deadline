@@ -9,8 +9,6 @@ package com.blogspot.onayub.sqltrial;
  */
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -33,8 +31,8 @@ public class DisplayDeadline extends AppCompatActivity {
     TextView name ;
     TextView phone ;
     TextView email ;
-    TextView street ;
-    TextView place ;
+   /* TextView street ;
+    TextView place ;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +55,11 @@ public class DisplayDeadline extends AppCompatActivity {
                 Cursor rs = mydb.getData(Value);
                 rs. moveToFirst();
 
-                String nam  =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_NAME));
-                String phon =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_PHONE));
-                String emai =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_EMAIL));
-                String stree=rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_STREET));
-                String plac =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_CITY));
+                String nam  =rs. getString(rs. getColumnIndex(DBHelper.DEADLINE_COLUMN_TITLE));
+                String phon =rs. getString(rs. getColumnIndex(DBHelper.DEADLINE_COLUMN_DATE));
+                String emai =rs. getString(rs. getColumnIndex(DBHelper.DEADLINE_COLUMN_DETAIL));
+                /*String stree=rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_STREET));
+                String plac =rs. getString(rs. getColumnIndex(DBHelper. CONTACTS_COLUMN_CITY));*/
 
                 if (!rs. isClosed()){
                     rs. close();
@@ -75,11 +73,11 @@ public class DisplayDeadline extends AppCompatActivity {
                 String tampilkan = "\t Tittle \t\t\t\t\t"+nam
                         + "\n\n \t Date \t\t\t\t\t" + phon
                         + "\n\n \t Course \t\t\t\t"+ emai
-                        + "\n\n \t Detail \t\t\t\t" + stree
-                        + "\n\n \t Lecture \t\t\t" + plac;
+                        /*+ "\n\n \t Detail \t\t\t\t" + stree
+                        + "\n\n \t Lecture \t\t\t" + plac*/;
                 name. setText((CharSequence) tampilkan);
             }else{
-                Toast.makeText(getApplicationContext(), "Eror brow",
+                Toast.makeText(getApplicationContext(), "Error brow",
                         Toast.LENGTH_SHORT).show();
             }
         /*}*/

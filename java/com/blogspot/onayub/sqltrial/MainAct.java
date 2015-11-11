@@ -17,7 +17,7 @@ import java.util.Collection;
 
 public class MainAct extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "MESSAGE";
-    private ListView obj ;
+    ListView obj ;
     DBHelper mydb;
 
     @Override
@@ -30,9 +30,8 @@ public class MainAct extends AppCompatActivity {
         //Daftar Deadline yang telah dibuat
         mydb = new DBHelper(this);
         ArrayList title = mydb.getDataDeadline(0);
-        ArrayAdapter arrayAdapter=new
-                ArrayAdapter(this,R.layout.list_style, R.id.title_label,  title);
-
+        /*ArrayAdapter arrayAdapter=new ArrayAdapter(this,R.layout.list_style, R.id.title_label,  title);*/
+        ArrayAdapter arrayAdapter= new ArrayAdapter(this, R.layout.list_style, R.id.title_label, title);
         ArrayList detail = mydb.getDataDeadline(1);
 
         obj = (ListView) findViewById(R. id. listView1);

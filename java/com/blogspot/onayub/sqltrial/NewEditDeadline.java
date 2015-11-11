@@ -7,24 +7,50 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 public class NewEditDeadline extends AppCompatActivity {
 
+    public static Button dateButton;
+    String taskOrEvent;
+    String stringDeadlineDate;
+    String descriptionText;
+    Date deadlineDate;
+    long dDay;
+    Date date = new Date();
+    Toast errorToast;
+    private TextInputLayout inputTaskLayout;
+    private EditText inputTask;
+    private Button moreLessButton;
+    private EditText inputDescription;
+    private ImageView descriptionIcon;
+
+    static int year;
+    static int month;
+    static int day;
+
+    /*----------------------------------------------*/
 
     int from_Where_I_Am_Coming = 0;
     private DBHelper mydb ;
-    TextView name ;
-    TextView phone;
-    TextView email;
-    TextView street;
-    TextView place;
     int id_To_Update = 0;
 
     @Override
@@ -34,62 +60,91 @@ public class NewEditDeadline extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        name  = (TextView)  findViewById(R. id. editTextName);
-        phone = (TextView)  findViewById(R. id. editTextPhone);
-        email = (TextView)  findViewById(R. id. editTextStreet);
-        street= (TextView)  findViewById(R. id. editTextEmail);
-        place = (TextView)  findViewById(R. id. editTextCity);
+        inputTask = (EditText)findViewById(R.id.input_task);
+        dateButton = (Button)findViewById(R.id.date_button);
+        moreLessButton = (Button)findViewById(R.id.more_less_button);
+        inputDescription = (EditText)findViewById(R.id.input_description);
+        descriptionIcon = (ImageView)findViewById(R.id.description_icon);
+
+        /*----------------------------------------------*/
 
         mydb = new DBHelper(this);
-        Bundle extras = getIntent().getExtras();//.getString("mode","new");
+        Bundle extras = getIntent().getExtras();
         CollapsingToolbarLayout tb = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout2);
 
+        //JIKA EDIT DEADLINE
         if(extras !=null) {
             int Value = extras.getInt("id");
             if (Value > 0) {
-                //Mencoba edit tittle di bar tp sementara edit/new dulu
                 tb.setTitle((CharSequence)"Edit Deadline");
 
                 Cursor rs = mydb.getData(Value);
                 id_To_Update = Value;
                 rs.moveToFirst();
 
-                String nam      = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_NAME));
-                String phon     = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_PHONE));
-                String emai     = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_EMAIL));
-                String stree    = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_STREET));
-                String plac     = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_CITY));
+                taskOrEvent         = rs.getString(rs.getColumnIndex(DBHelper.DEADLINE_COLUMN_TITLE));
+                stringDeadlineDate  = rs.getString(rs.getColumnIndex(DBHelper.DEADLINE_COLUMN_DATE));
+                descriptionText     = rs.getString(rs.getColumnIndex(DBHelper.DEADLINE_COLUMN_DETAIL));
 
-                //Display Data yang mau diedit
+                inputTask.setText((CharSequence) taskOrEvent);
+                inputTask.setFocusable(true);
+                inputTask.setCursorVisible(true);
+                inputTask.setClickable(true);
 
-                name.setText((CharSequence) nam);
-                name.setFocusable(true);
-                name.setCursorVisible(true);
-                name.setClickable(true);
+                dateButton.setText((CharSequence) stringDeadlineDate);
 
-                phone.setText((CharSequence) phon);
-                phone.setFocusable(true);
-                phone.setCursorVisible(true);
-                phone.setClickable(true);
-
-                email.setText((CharSequence) emai);
-                email.setFocusable(true);
-                email.setCursorVisible(true);
-                email.setClickable(true);
-
-                street.setText((CharSequence) stree);
-                street.setFocusable(true);
-                street.setCursorVisible(true);
-                street.setClickable(true);
-
-                place.setText((CharSequence) plac);
-                place.setFocusable(true);
-                place.setCursorVisible(true);
-                place.setClickable(true);
+                inputDescription.setText((CharSequence) descriptionText);
+                inputDescription.setFocusable(true);
+                inputDescription.setCursorVisible(true);
+                inputDescription.setClickable(true);
             }else {
                 tb.setTitle((CharSequence)"New Deadline");
             }
         }
+
+
+
+        year = 0;
+        month = 0;
+        day = 0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.US);
+        dateButton.setText(dateFormat.format(date));
+
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog(view);
+                inputTask.setEnabled(false);
+                inputTask.setEnabled(true);
+            }
+        });
+
+        moreLessButton.setText("more");
+        inputDescription.setVisibility(View.INVISIBLE);
+        descriptionIcon.setVisibility(View.INVISIBLE);
+
+        moreLessButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(moreLessButton.getText().toString() == "more"){
+                    inputDescription.setVisibility(View.VISIBLE);
+                    descriptionIcon.setVisibility(View.VISIBLE);
+                    inputDescription.requestFocus();
+                    inputDescription.setEnabled(false);
+                    inputDescription.setEnabled(true);
+                    moreLessButton.setText("less");
+
+                }
+                else if(moreLessButton.getText().toString() == "less"){
+                    inputDescription.setVisibility(View.INVISIBLE);
+                    descriptionIcon.setVisibility(View.INVISIBLE);
+                    moreLessButton.setText("more");
+                    inputTask.setEnabled(false);
+                    inputTask.setEnabled(true);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -109,13 +164,13 @@ public class NewEditDeadline extends AppCompatActivity {
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item)
+    /*public boolean onOptionsItemSelected(MenuItem item)
     {
         super.onOptionsItemSelected(item);
         switch(item.getItemId())
         {
             case R.id.Edit_Contact:
-                /*Button b = (Button) findViewById(R.id.button);*/
+                *//*Button b = (Button) findViewById(R.id.button);*//*
                 FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab_submit);
                 b.setVisibility(View.VISIBLE);
 
@@ -131,13 +186,13 @@ public class NewEditDeadline extends AppCompatActivity {
                 email. setFocusableInTouchMode(true);
                 email. setClickable(true);
 
-                street. setEnabled(true);
+               *//* street. setEnabled(true);
                 street. setFocusableInTouchMode(true);
                 street. setClickable(true);
 
                 place. setEnabled(true);
                 place. setFocusableInTouchMode(true);
-                place. setClickable(true);
+                place. setClickable(true);*//*
                 return true;
             case R.id.Delete_Contact:
                 AlertDialog. Builder builder = new AlertDialog. Builder(this);
@@ -163,39 +218,104 @@ public class NewEditDeadline extends AppCompatActivity {
             default:
                 return super. onOptionsItemSelected(item);
         }
-    }
+    }*/
 
     public void run(View view) {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
             int Value = extras.getInt("id");
+
+            //taskOrEvent = inputTask.getText().toString();
+            deadlineDate = getDate(year, month, day);
+            dDay = getdDay(date, deadlineDate);
+
             if (Value > 0) {
-                if (mydb.updateContact(id_To_Update, name.getText().toString(),
-                        phone.getText().toString(), email.getText().toString(), street.getText().toString(),
-                        place.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "Updated",
-                            Toast.LENGTH_SHORT).show();
-                    Intent intent = new
-                            Intent(getApplicationContext(), MainAct.class);
+                if (inputTask.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(),"Required field is empty",Toast.LENGTH_SHORT).show();
+                }
+                else if (dDay < 0) {
+                    Toast.makeText(getApplicationContext(),"Deadline date has passed",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                if (mydb.updateDeadline(id_To_Update, inputTask.getText().toString(),
+                        dateToString(deadlineDate),inputDescription.getText().toString())) {
+                    Intent intent = new Intent(getApplicationContext(), MainAct.class);
                     startActivity(intent);
-                } else {
+                    }else {
                     Toast.makeText(getApplicationContext(), "not Updated",
                             Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } else {
-                if (mydb.insertContact(name.getText().toString(),
-                        phone.getText().toString(), email.getText().toString(), street.getText().toString(),
-                        place.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "done",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "not done",
-                            Toast.LENGTH_SHORT).show();
+            }
+            else {
+                if (inputTask.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(),"Required field is empty",Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(getApplicationContext(), MainAct.class);
-                startActivity(intent);
+                else if (dDay < 0) {
+                    Toast.makeText(getApplicationContext(),"Deadline date has passed",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if (mydb.insertDeadline(inputTask.getText().toString(),
+                            dateToString(deadlineDate),inputDescription.getText().toString())) {
+                        Intent intent = new Intent(getApplicationContext(), MainAct.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(getApplicationContext(), "not inserted",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         }
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    private void submitTask(){
+        stringDeadlineDate = dateToString(deadlineDate);
+        descriptionText = inputDescription.toString();
+        sendData(taskOrEvent, stringDeadlineDate, dDay, descriptionText);
+        NavUtils.navigateUpFromSameTask(this);
+    }
+
+    private boolean validTask() {
+        if (inputTask.getText().toString().trim().isEmpty()) {
+            inputTaskLayout.setError(getString(R.string.input_task_error));
+        }
+        else {
+            inputTaskLayout.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private void sendData(String task, String deadline, long dDay, String description) {
+
+    }
+
+    private Date getDate(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+    private long getdDay(Date nowDate, Date pickedDate) {
+        long dDay;
+        dDay = pickedDate.getTime() - nowDate.getTime();
+        dDay = TimeUnit.DAYS.convert(dDay, TimeUnit.MILLISECONDS);
+        return dDay;
+    }
+
+    private String dateToString(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.US);
+        dateButton.setText(dateFormat.format(date));
+        return dateFormat.toString();
     }
 }
